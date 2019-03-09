@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<config>
+    <modules>
+        <Kalinich_Suprise>
+            <version>0.0.1</version>
+        </Kalinich_Suprise>
+    </modules>
+    <global>
+        <helpers>
+            <class>Kalinich_Surprise_Helper_Data</class>
+        </helpers>
+    </global>
+</config>
