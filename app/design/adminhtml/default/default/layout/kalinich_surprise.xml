@@ -1,4 +1,27 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <layout>
+    <adminhtml_catalog_product_edit>
+        <reference name="left">
+            <block type="kalinich_surprise/adminhtml_surprise_edit_tabs" name="kalinich_surprise_edit_tabs"/>
+        </reference>
+    </adminhtml_catalog_product_edit>
+
+    <adminhtml_catalog_product_kalinichsurprise>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="kalinich_surprise/adminhtml_surprise_edit_tab_surprise" name="kalinich_surprise_edit_tab_surprise" />
+            <!--<block type="adminhtml/widget_grid_serializer" name="category_grid_serializer">-->
+                <!--<reference name="category_grid_serializer">-->
+                    <!--<action method="initSerializerBlock">-->
+                        <!--<grid_block_name>kalinich_action_edit_tab_category</grid_block_name>-->
+                        <!--<data_callback>getSelectedCategory</data_callback>-->
+                        <!--<hidden_input_name>category_ids</hidden_input_name>-->
+                        <!--<reload_param_name>category_ids_reload</reload_param_name>-->
+                    <!--</action>-->
+                <!--</reference>-->
+            <!--</block>-->
+        </block>
+    </adminhtml_catalog_product_kalinichsurprise>
+
+
 
 </layout>
