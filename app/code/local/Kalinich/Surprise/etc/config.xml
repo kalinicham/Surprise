@@ -5,9 +5,45 @@
             <version>0.0.1</version>
         </Kalinich_Suprise>
     </modules>
+    <frontend>
+        <routers>
+            <kalinich_surprise>
+                <use>standard</use>
+                <args>
+                    <module>Kalinich_Surprise</module>
+                    <frontName>surprise</frontName>
+                </args>
+            </kalinich_surprise>
+        </routers>
+    </frontend>
     <global>
         <helpers>
             <class>Kalinich_Surprise_Helper_Data</class>
         </helpers>
+        <blocks>
+            <kalinich_surprise>
+                <class>Kalinich_Surprise_Block</class>
+            </kalinich_surprise>
+        </blocks>
     </global>
+    <admin>
+        <routers>
+            <adminhtml>
+                <args>
+                    <modules>
+                        <kalinich_surprise before="Mage_Adminhtml">Kalinich_Surprise_Adminhtml</kalinich_surprise>
+                    </modules>
+                </args>
+            </adminhtml>
+        </routers>
+    </admin>
+    <adminhtml>
+        <layout>
+            <updates>
+                <kalinich_surprise>
+                    <file>kalinich_surprise.xml</file>
+                </kalinich_surprise>
+            </updates>
+        </layout>
+    </adminhtml>
 </config>
