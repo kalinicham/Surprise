@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
     <modules>
-        <Kalinich_Suprise>
+        <Kalinich_Surprise>
             <version>0.0.1</version>
-        </Kalinich_Suprise>
+        </Kalinich_Surprise>
     </modules>
     <frontend>
         <routers>
@@ -18,13 +18,36 @@
     </frontend>
     <global>
         <helpers>
-            <class>Kalinich_Surprise_Helper_Data</class>
+            <kalinich_surprise>
+                <class>Kalinich_Surprise_Helper</class>
+            </kalinich_surprise>
         </helpers>
         <blocks>
             <kalinich_surprise>
                 <class>Kalinich_Surprise_Block</class>
             </kalinich_surprise>
         </blocks>
+        <models>
+            <kalinich_surprise>
+                <class>Kalinich_Surprise_Model</class>
+                <resourceModel>kalinich_surprise_resource</resourceModel>
+            </kalinich_surprise>
+            <kalinich_surprise_resource>
+                <class>Kalinich_Surprise_Model_Resource</class>
+                <entities>
+                    <surprise>
+                        <table>kalinich_surprise</table>
+                    </surprise>
+                </entities>
+            </kalinich_surprise_resource>
+        </models>
+        <resources>
+            <kalinich_surprise_setup>
+                <setup>
+                    <module>Kalinich_Surprise</module>
+                </setup>
+            </kalinich_surprise_setup>
+        </resources>
     </global>
     <admin>
         <routers>
@@ -45,5 +68,16 @@
                 </kalinich_surprise>
             </updates>
         </layout>
+        <events>
+            <catalog_product_save_after>
+                <observers>
+                    <kalinich_surprise_save_data>
+                        <type>singleton</type>
+                        <class>Kalinich_Surprise_Model_Observer</class>
+                        <method>saveProductSurpriseData</method>
+                    </kalinich_surprise_save_data>
+                </observers>
+            </catalog_product_save_after>
+        </events>
     </adminhtml>
 </config>
