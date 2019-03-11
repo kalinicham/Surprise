@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Kalinich_Surprise>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Kalinich_Surprise>
+    </modules>
+</config>

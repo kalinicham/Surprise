@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<layout>
+    <adminhtml_catalog_product_edit>
+        <reference name="product_tabs">
+            <action method="addTab">
+                <name>Kalinich Surprise</name>
+                <block>kalinich_surprise/adminhtml_catalog_product_tab</block>
+            </action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+
+    <adminhtml_catalog_product_kalinichsurprise>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="kalinich_surprise/adminhtml_catalog_product_tab_product" name="kalinich_surprise_catalog_product_tab_product" />
+            <block type="adminhtml/widget_grid_serializer" name="product_grid_serializer">
+                <reference name="product_grid_serializer">
+                    <action method="initSerializerBlock">
+                        <grid_block_name>kalinich_surprise_catalog_product_tab_product</grid_block_name>
+                        <data_callback>getSelectedProduct</data_callback>
+                        <hidden_input_name>product_ids</hidden_input_name>
+                        <reload_param_name>product_ids_reload</reload_param_name>
+                    </action>
+                </reference>
+            </block>
+        </block>
+    </adminhtml_catalog_product_kalinichsurprise>
+
+    <adminhtml_catalog_product_kalinichsurprisegrid>
+        <block type="core/text_list" name="root" output="toHtml">
+            <block type="kalinich_surprise/adminhtml_catalog_product_tab_product" name="kalinich_surprise_catalog_product_tab_product" />
+        </block>
+    </adminhtml_catalog_product_kalinichsurprisegrid>
+</layout>
