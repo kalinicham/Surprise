@@ -17,6 +17,7 @@ class Kalinich_Surprise_Model_Observer {
         $model = Mage::getModel('kalinich_surprise/surprise');
 
         $outProducts = Mage::app()->getRequest()->getParam('product_ids',null);
+
         $inProducts = $model->getProductColletion($productId);
         if (!is_null($outProducts) && $outProducts == "") {
             $delProductId = $inProducts;

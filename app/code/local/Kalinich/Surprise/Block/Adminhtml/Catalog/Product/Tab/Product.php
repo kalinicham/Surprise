@@ -114,13 +114,18 @@ class Kalinich_Surprise_Block_Adminhtml_Catalog_Product_Tab_Product extends Mage
 
     public function getSelectedProduct()
     {
-       // $productIds = array();
-        $productIds = Mage::app()->getRequest()->getParam('product_ids_reload',null);
-            if (is_null($productIds) || !is_array($productIds)) {
-                $product = Mage::registry('surprise_block');
-                $productIds = $product->getProductColletion();
+        $surpriseIds = Mage::app()->getRequest()->getParam('product_ids_reload',null);
+            if (is_null($surpriseIds) || !is_array($surpriseIds)) {
+
+                /* @var $model  Kalinich_Surprise_Model_Surprise */
+
+                $model = Mage::getModel('kalinich_surprise/surprise');
+                $productId = Mage::registry('surprise_block');
+
+
+                $surpriseIds = $model->getProductColletion($productId);
             }
-        return $productIds;
+        return $surpriseIds;
     }
 
  /*   public function getTabLabel()

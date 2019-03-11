@@ -5,14 +5,14 @@ class Kalinich_Surprise_Adminhtml_Catalog_ProductController extends Mage_Adminht
     public function kalinichsurpriseAction() {
         $id = $this->getRequest()->getParam('id');
 
-        $model = null;
+       /* $model = null;
         if ($id) {
             $model = Mage::getModel('kalinich_surprise/surprise')->load($id);
         } else {
             $model = Mage::getModel('kalinich_surprise/surprise');
-        }
+        }*/
 
-        Mage::register('surprise_block', $model);
+        Mage::register('surprise_block', $id);
 
         $this->loadLayout();
         $this->renderLayout();
@@ -21,14 +21,14 @@ class Kalinich_Surprise_Adminhtml_Catalog_ProductController extends Mage_Adminht
     public function kalinichsurprisegridAction() {
         $id = $this->getRequest()->getParam('id');
 
-        $model = null;
+        /*$model = null;
         if ($id) {
             $model = Mage::getModel('kalinich_surprise/surprise')->load($id);
         } else {
             $model = Mage::getModel('kalinich_surprise/surprise');
-        }
+        }*/
 
-        Mage::register('surprise_block', $model);
+        Mage::register('surprise_block', $id);
 
         $this->loadLayout();
         $this->renderLayout();
