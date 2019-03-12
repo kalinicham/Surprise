@@ -24,10 +24,10 @@ class Kalinich_Surprise_Block_Adminhtml_Catalog_Product_Tab_Product extends Mage
         return Mage::registry('surprise_block');
     }
 
-  /*  protected function _addColumnFilterToCollection($column)
+    protected function _addColumnFilterToCollection($column)
     {
         if ($column->getId() == 'in_category') {
-            $productIds = $this->getSelectedCategory();
+            $productIds = $this->getSelectedProduct();
             if ($column->getFilter()->getValue()) {
                 $this->getCollection()->addFieldToFilter('entity_id', array('in' => $productIds));
             } else {
@@ -39,11 +39,21 @@ class Kalinich_Surprise_Block_Adminhtml_Catalog_Product_Tab_Product extends Mage
             parent::_addColumnFilterToCollection($column);
         }
         return $this;
-    }*/
+    }
 
     public function _prepareCollection() {
+        $storeId = Mage::app()->getStore()->getId();
+        $id = $this->getCurrentAction();
         $collection = Mage::getModel('catalog/product')->getCollection()
-            ->addAttributeToSelect('*');
+            ->addAttributeToSelect('*')
+            ->addStoreFilter($storeId)
+            ->addAttributeToFilter('status', array(
+                'in' => array(
+                 Mage_Catalog_Model_Product_Status::STATUS_ENABLED,
+                 Mage_Catalog_Model_Product_Status::STATUS_DISABLED)
+            ))
+            ->addAttributeToFilter ('entity_id',array('nin' => $id))
+            ->addAttributeToFilter('type_id', Mage_Catalog_Model_Product_Type::DEFAULT_TYPE);
         $this->setCollection($collection);
         return parent::_prepareCollection();
     }
@@ -71,17 +81,24 @@ class Kalinich_Surprise_Block_Adminhtml_Catalog_Product_Tab_Product extends Mage
             'width'     => '255'
         ));
 
-        $this->addColumn('typeProduct', array(
+       /* $this->addColumn('typeProduct', array(
             'header'    => Mage::helper('kalinich_surprise')->__('Type'),
             'align'     => 'left',
             'index'     => 'type_id',
             'width'     => '255'
-        ));
+        ));*/
 
         $this->addColumn('sku', array(
             'header'    => Mage::helper('kalinich_surprise')->__('SKU'),
             'align'     => 'left',
             'index'     => 'sku',
+            'width'     => '255'
+        ));
+
+        $this->addColumn('type_id', array(
+            'header'    => Mage::helper('kalinich_surprise')->__('Type'),
+            'align'     => 'left',
+            'index'     => 'type_id',
             'width'     => '255'
         ));
 
@@ -99,8 +116,19 @@ class Kalinich_Surprise_Block_Adminhtml_Catalog_Product_Tab_Product extends Mage
             ),
         ));
 
+        $this->addColumn('status', array(
+            'header'    => Mage::helper('kalinich_surprise')->__('Status'),
+            'align'     => 'left',
+            'index'     => 'status',
+            'width'     => '255',
+            'type'      => 'options',
+            'options'   => array(
+                1       => Mage::helper('cms')->__('ENABLED'),
+                2       => Mage::helper('cms')->__('DISABLED'),
+            ),
+        ));
 
-        $this->addColumn('price', array(
+        /*$this->addColumn('price', array(
             'header'    => Mage::helper('kalinich_surprise')->__('Price'),
             'align'     => 'left',
             'index'     => 'price',
@@ -108,7 +136,7 @@ class Kalinich_Surprise_Block_Adminhtml_Catalog_Product_Tab_Product extends Mage
             'type'      => 'price',
             'currency_code' => Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
             'editable'  => true
-        ));
+        ));*/
         return parent::_prepareColumns();
     }
 
@@ -120,31 +148,10 @@ class Kalinich_Surprise_Block_Adminhtml_Catalog_Product_Tab_Product extends Mage
                 /* @var $model  Kalinich_Surprise_Model_Surprise */
 
                 $model = Mage::getModel('kalinich_surprise/surprise');
-                $productId = Mage::registry('surprise_block');
-
+                $productId = $this->getCurrentAction();
 
                 $surpriseIds = $model->getProductColletion($productId);
             }
         return $surpriseIds;
     }
-
- /*   public function getTabLabel()
-    {
-        return $this->__('Products');
-    }
-
-    public function getTabTitle()
-    {
-        return $this->__('Products');
-    }
-
-    public function canShowTab()
-    {
-        return true;
-    }
-
-    public function isHidden()
-    {
-        return false;
-    }*/
 }
