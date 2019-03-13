@@ -11,10 +11,11 @@ class Kalinich_Surprise_Model_Surprise extends Mage_Core_Model_Abstract {
     public function getProductColletion($productId) {
 
         $collection = Mage::getModel('kalinich_surprise/surprise')->getCollection()
-            ->addFieldToSelect('product_id')
-            ->addFieldToFilter('surprise_id', $productId);
+            ->addFieldToSelect('surprise_id')
+            ->addFieldToFilter('product_id', $productId)
+            ->addFieldToFilter('is_active', 1);
         foreach ($collection as $value) {
-            $product[] = $value->getProductId();
+            $product[] = $value->getSurpriseId();
         }
 
         return $product;

@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Kalinich_Surprise>
-            <version>0.0.1</version>
+            <version>0.0.2</version>
         </Kalinich_Surprise>
     </modules>
     <frontend>
@@ -15,6 +15,17 @@
                 </args>
             </kalinich_surprise>
         </routers>
+        <events>
+            <checkout_cart_update_items_before>
+                <observers>
+                    <kalinich_surprise_add_surprise>
+                        <type>singleton</type>
+                        <class>Kalinich_Surprise_Model_Observer</class>
+                        <method>addSurpriseToCart</method>
+                    </kalinich_surprise_add_surprise>
+                </observers>
+            </checkout_cart_update_items_before>
+        </events>
     </frontend>
     <global>
         <helpers>
