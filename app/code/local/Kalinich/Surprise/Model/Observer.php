@@ -7,10 +7,6 @@ class Kalinich_Surprise_Model_Observer {
     /* @param Varien_Event_Observer $observer
      */
 
-    public function addSurpriseToCart($observer) {
-        $a = 1;
-    }
-
     public function saveProductSurpriseData($observer) {
         if (!self::$_singletonFlag) {
             self::$_singletonFlag = true;
@@ -68,7 +64,7 @@ class Kalinich_Surprise_Model_Observer {
 
         }
         catch (Exception $e) {
-            Mage::getSingleton('adminhtml/session')->addError($e->getMessage());
+            Mage::getModel('adminhtml/session')->addError($e->getMessage());
         }
 
     }

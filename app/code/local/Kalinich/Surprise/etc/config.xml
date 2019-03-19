@@ -16,15 +16,35 @@
             </kalinich_surprise>
         </routers>
         <events>
-            <checkout_cart_update_items_before>
+            <checkout_cart_add_product_complete>
                 <observers>
                     <kalinich_surprise_add_surprise>
-                        <type>singleton</type>
-                        <class>Kalinich_Surprise_Model_Observer</class>
+                        <type>model</type>
+                        <class>Kalinich_Surprise_Model_ObserverCheckOut</class>
                         <method>addSurpriseToCart</method>
                     </kalinich_surprise_add_surprise>
                 </observers>
-            </checkout_cart_update_items_before>
+            </checkout_cart_add_product_complete>
+
+            <sales_quote_add_item>
+                <observers>
+                    <kalinich_surprise_update_price_surprise>
+                        <type>model</type>
+                        <class>Kalinich_Surprise_Model_ObserverCheckOut</class>
+                        <method>updateCartPrice</method>
+                    </kalinich_surprise_update_price_surprise>
+                </observers>
+            </sales_quote_add_item>
+
+            <sales_quote_collect_totals_after>
+                <observers>
+                    <kalinich_surprise_update_sales>
+                        <type>model</type>
+                        <class>Kalinich_Surprise_Model_ObserverCheckOut</class>
+                        <method>upDataSurprise</method>
+                    </kalinich_surprise_update_sales>
+                </observers>
+            </sales_quote_collect_totals_after>
         </events>
     </frontend>
     <global>
@@ -37,6 +57,13 @@
             <kalinich_surprise>
                 <class>Kalinich_Surprise_Block</class>
             </kalinich_surprise>
+
+            <checkout>
+                <rewrite>
+                    <cart_item_renderer>Kalinich_Surprise_Block_Cart_Item_Renderer</cart_item_renderer>
+                </rewrite>
+            </checkout>
+
         </blocks>
         <models>
             <kalinich_surprise>
