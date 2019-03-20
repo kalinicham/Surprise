@@ -57,8 +57,12 @@ class Kalinich_Surprise_Block_Adminhtml_Catalog_Product_Tab_Product extends Mage
             ->addAttributeToFilter('type_id', Mage_Catalog_Model_Product_Type::DEFAULT_TYPE);
 
         $tableSurprise = Mage::getModel('core/resource')->getTableName('kalinich_surprise/surprise');
+
+        $collection->joinField('count_order',$tableSurprise,'count_order','surprise_id = entity_id'
+            ,NULL,'left');
+
         $collection->getSelect()->joinLeft(
-            array('t1'=> $tableSurprise),'e.entity_id = t1.surprise_id',
+            array('t1'=> $tableSurprise),"(e.entity_id = t1.surprise_id)AND(t1.product_id = $)",
             array('count_order')
         );
 

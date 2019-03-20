@@ -8,9 +8,20 @@
 
 class Kalinich_Surprise_Helper_Data extends Mage_Core_Helper_Abstract {
 
+    const IS_ACTIVE_ENABLED  = '1';
 
     public function getSurpriseId($addProductId) {
-        return 385;
+        /* @var $surpriseColection Kalinich_Surprise_Model_Surprise */
+        $surpriseColection = Mage::getModel('kalinich_surprise/surprise')->getCollection()
+            ->addFieldToFilter('product_id',$addProductId)
+            ->addFieldToFilter('is_active', self::IS_ACTIVE_ENABLED)
+            ->setOrder('count_order','ASC')->getItems();
+        if (count($surpriseColection) > 0) {
+            $idSurprise = array_shift($surpriseColection);
+            return $idSurprise->getSurpriseId();
+        }
+
+        return false;
     }
 
 }

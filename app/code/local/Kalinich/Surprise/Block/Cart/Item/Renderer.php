@@ -7,9 +7,11 @@ class Kalinich_Surprise_Block_Cart_Item_Renderer extends Mage_Checkout_Block_Car
 
     protected function isSurprise($productId)
     {
-        $cart = Mage::getSingleton('checkout/cart');
+        $cart = Mage::getModel('checkout/cart');
         foreach ($cart->getItems() as $collectionItem) {
             if (($collectionItem->getName() == 'Kalinich_Surprise') && ($collectionItem->getProductId() == $productId)){
+                    return true;
+            }elseif (($collectionItem->getOrigData('name') == 'Kalinich_Surprise') && ($collectionItem->getProductId() == $productId)) {
                 return true;
             }
         }
@@ -39,17 +41,28 @@ class Kalinich_Surprise_Block_Cart_Item_Renderer extends Mage_Checkout_Block_Car
 
     public function getProductThumbnail()
     {
-
-       return parent::getProductThumbnail();
+        if ($this->isSurprise($this->getProductId()))
+        {
+            $this->getProduct()->setData('thumbnail', '/s/u/surprise.png');
+         }
+        return parent::getProductThumbnail();
     }
-
-    /*  public function escapeHtml($data, $allowedTags = null)
+      public function escapeHtml($data, $allowedTags = null)
       {
           if ($this->isSurprise($this->_item->getProduct()->getId()))
           {
-              $this->_item->setData('sku','surprise');
+              $this->_item->setData('sku','Kalinich Surprise');
           }
           return parent::escapeHtml($data, $allowedTags = null);
-      }*/
+      }
+
+      public function getQty()
+      {
+          if ($this->isSurprise($this->_item->getProduct()->getId()))
+          {
+              return $this->getItem()->getQty() . '" disabled "';
+          }
+          return parent::getQty();
+      }
 
 }
