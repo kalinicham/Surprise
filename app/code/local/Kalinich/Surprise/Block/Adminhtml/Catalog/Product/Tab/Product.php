@@ -44,7 +44,7 @@ class Kalinich_Surprise_Block_Adminhtml_Catalog_Product_Tab_Product extends Mage
     public function _prepareCollection() {
         $storeId = Mage::app()->getStore()->getId();
         $id = $this->getCurrentAction();
-        /* @var $collection Mage_Catalog_Model_Product */
+        /* @var $collection Mage_Catalog_Model_Resource_Product_Collection */
         $collection = Mage::getModel('catalog/product')->getCollection()
             ->addAttributeToSelect('*')
             ->addStoreFilter($storeId)
@@ -58,11 +58,8 @@ class Kalinich_Surprise_Block_Adminhtml_Catalog_Product_Tab_Product extends Mage
 
         $tableSurprise = Mage::getModel('core/resource')->getTableName('kalinich_surprise/surprise');
 
-        $collection->joinField('count_order',$tableSurprise,'count_order','surprise_id = entity_id'
-            ,NULL,'left');
-
         $collection->getSelect()->joinLeft(
-            array('t1'=> $tableSurprise),"(e.entity_id = t1.surprise_id)AND(t1.product_id = $)",
+            array('t1'=> $tableSurprise),'(e.entity_id = t1.surprise_id)AND(t1.product_id = '.$id.')',
             array('count_order')
         );
 
